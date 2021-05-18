@@ -1,8 +1,10 @@
 package com.easyjob.jobmanager.controller.resume;
 
 import com.easyjob.jobmanager.entity.resume.Resume;
+import com.easyjob.jobmanager.entity.resume.ResumePage;
 import com.easyjob.jobmanager.service.resume.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,12 @@ public class ResumeController {
     @GetMapping(path = "/all")
     public ResponseEntity<List<Resume>> getAllResumes() {
         List<Resume> resumes = resumeService.findAllResumes();
+        return new ResponseEntity<>(resumes, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/find")
+    public ResponseEntity<Page<Resume>> getResumes(ResumePage resumePage) {
+        Page<Resume> resumes = resumeService.findResumes(resumePage);
         return new ResponseEntity<>(resumes, HttpStatus.OK);
     }
 

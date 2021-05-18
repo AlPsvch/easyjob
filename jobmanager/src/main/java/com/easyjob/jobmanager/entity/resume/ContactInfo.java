@@ -1,11 +1,10 @@
 package com.easyjob.jobmanager.entity.resume;
 
-import com.easyjob.jobmanager.entity.resume.Resume;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class ContactInfo {
+public class ContactInfo implements Serializable {
 
     @Id
     @SequenceGenerator(name = "contact_info_sequence", sequenceName = "contact_info_sequence", allocationSize = 1)

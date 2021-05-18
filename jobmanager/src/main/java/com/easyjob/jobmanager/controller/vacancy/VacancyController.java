@@ -1,8 +1,10 @@
 package com.easyjob.jobmanager.controller.vacancy;
 
 import com.easyjob.jobmanager.entity.vacancy.Vacancy;
+import com.easyjob.jobmanager.entity.vacancy.VacancyPage;
 import com.easyjob.jobmanager.service.vacancy.VacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,12 @@ public class VacancyController {
     @GetMapping(path = "/all")
     public ResponseEntity<List<Vacancy>> getAllVacancies() {
         List<Vacancy> vacancies = vacancyService.findAllVacancies();
+        return new ResponseEntity<>(vacancies, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/find")
+    public ResponseEntity<Page<Vacancy>> getVacancies(VacancyPage vacancyPage) {
+        Page<Vacancy> vacancies = vacancyService.findVacancies(vacancyPage);
         return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 

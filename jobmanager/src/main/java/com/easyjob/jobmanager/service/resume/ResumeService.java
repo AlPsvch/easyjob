@@ -2,8 +2,13 @@ package com.easyjob.jobmanager.service.resume;
 
 import com.easyjob.jobmanager.dao.resume.ResumeRepository;
 import com.easyjob.jobmanager.entity.resume.Resume;
+import com.easyjob.jobmanager.entity.resume.ResumePage;
 import com.easyjob.jobmanager.exception.ResumeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +26,13 @@ public class ResumeService {
 
     public List<Resume> findAllResumes() {
         return resumeRepository.findAll();
+    }
+
+    public Page<Resume> findResumes(ResumePage resumePage) {
+        Sort sortOptions = Sort.by(resumePage.getSortDirection(), resumePage.getSortByParameter());
+        Pageable pageable = PageRequest.of(resumePage.getPageNumber(), resumePage.getPageSize(), sortOptions);
+
+        return resumeRepository.findAll(pageable);
     }
 
     public Resume findResume(Long resumeId) {

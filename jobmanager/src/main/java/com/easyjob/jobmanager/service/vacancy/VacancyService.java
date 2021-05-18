@@ -2,8 +2,13 @@ package com.easyjob.jobmanager.service.vacancy;
 
 import com.easyjob.jobmanager.dao.vacancy.VacancyRepository;
 import com.easyjob.jobmanager.entity.vacancy.Vacancy;
+import com.easyjob.jobmanager.entity.vacancy.VacancyPage;
 import com.easyjob.jobmanager.exception.VacancyNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +26,13 @@ public class VacancyService {
 
     public List<Vacancy> findAllVacancies() {
         return vacancyRepository.findAll();
+    }
+
+    public Page<Vacancy> findVacancies(VacancyPage vacancyPage) {
+        Sort sortOptions = Sort.by(vacancyPage.getSortDirection(), vacancyPage.getSortByParameter());
+        Pageable pageable = PageRequest.of(vacancyPage.getPageNumber(), vacancyPage.getPageSize(), sortOptions);
+
+        return vacancyRepository.findAll(pageable);
     }
 
     public Vacancy findVacancy(Long vacancyId) {

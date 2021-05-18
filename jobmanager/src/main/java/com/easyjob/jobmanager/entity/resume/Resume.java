@@ -1,10 +1,11 @@
 package com.easyjob.jobmanager.entity.resume;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Resume {
+public class Resume implements Serializable {
 
     @Id
     @SequenceGenerator(name = "resume_sequence", sequenceName = "resume_sequence", allocationSize = 1)
