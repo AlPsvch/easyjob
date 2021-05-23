@@ -24,9 +24,41 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/app/resources/css/open-iconic-bootstrap.min.css",
+              "src/app/resources/css/animate.css",
+              "src/app/resources/css/owl.carousel.min.css",
+              "src/app/resources/css/owl.theme.default.min.css",
+              "src/app/resources/css/magnific-popup.css",
+              "src/app/resources/css/aos.css",
+              "src/app/resources/css/ionicons.min.css",
+              "src/app/resources/css/bootstrap-datepicker.css",
+              "src/app/resources/css/bootstrap.min.css",
+              "src/app/resources/css/jquery.timepicker.css",
+              "src/app/resources/css/flaticon.css",
+              "src/app/resources/css/icomoon.css",
+              "src/app/resources/css/style.css",
+              "src/app/resources/css/css/bootstrap-reboot.css",
+              "src/app/resources/css/css/mixins/_text-hide.css",
+              "src/app/resources/css/bootstrap/bootstrap-grid.css",
+              "src/app/resources/css/bootstrap/bootstrap-reboot.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/resources/js/jquery.min.js",
+              "src/app/resources/js/jquery-migrate-3.0.1.min.js",
+              "src/app/resources/js/popper.min.js",
+              "src/app/resources/js/bootstrap.min.js",
+              "src/app/resources/js/jquery.easing.1.3.js",
+              "src/app/resources/js/jquery.waypoints.min.js",
+              "src/app/resources/js/jquery.stellar.min.js",
+              "src/app/resources/js/owl.carousel.min.js",
+              "src/app/resources/js/jquery.magnific-popup.min.js",
+              "src/app/resources/js/aos.js",
+              "src/app/resources/js/jquery.animateNumber.min.js",
+              "src/app/resources/js/scrollax.min.js",
+              "src/app/resources/js/google-map.js",
+              "src/app/resources/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
