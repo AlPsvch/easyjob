@@ -1,5 +1,15 @@
 package com.easyjob.jobmanager.entity.resume;
 
 public enum Gender {
-    MALE, FEMALE
+    MALE("Мужской"), FEMALE ("Женский");
+
+    private final String name;
+
+    Gender(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

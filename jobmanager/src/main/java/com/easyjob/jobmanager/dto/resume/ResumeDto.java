@@ -1,39 +1,20 @@
-package com.easyjob.jobmanager.entity.resume;
+package com.easyjob.jobmanager.dto.resume;
 
 import com.easyjob.jobmanager.entity.JobCategory;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-public class Resume implements Serializable {
+public class ResumeDto {
 
-    @Id
-    @SequenceGenerator(name = "resume_sequence", sequenceName = "resume_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resume_sequence")
-    @Column(nullable = false, updatable = false)
     private Long id;
-
     private String name;
-
     private String experience;
-
-    @OneToOne
-    private ContactInfo contactInfo;
-
-    @OneToOne
-    private Education education;
-
-    @Enumerated(EnumType.ORDINAL)
-    private Gender gender;
-
+    private ContactInfoDto contactInfo;
+    private EducationDto education;
+    private String gender;
     private boolean active;
-
     private LocalDateTime publishDate;
-
-    @Enumerated(EnumType.STRING)
-    private JobCategory resumeCategory;
+    private String resumeCategory;
 
     public Long getId() {
         return id;
@@ -59,27 +40,27 @@ public class Resume implements Serializable {
         this.experience = experience;
     }
 
-    public ContactInfo getContactInfo() {
+    public ContactInfoDto getContactInfo() {
         return contactInfo;
     }
 
-    public void setContactInfo(ContactInfo contactInfo) {
+    public void setContactInfo(ContactInfoDto contactInfo) {
         this.contactInfo = contactInfo;
     }
 
-    public Education getEducation() {
+    public EducationDto getEducation() {
         return education;
     }
 
-    public void setEducation(Education education) {
+    public void setEducation(EducationDto education) {
         this.education = education;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -99,11 +80,11 @@ public class Resume implements Serializable {
         this.publishDate = publishDate;
     }
 
-    public JobCategory getResumeCategory() {
+    public String getResumeCategory() {
         return resumeCategory;
     }
 
-    public void setResumeCategory(JobCategory resumeCategory) {
+    public void setResumeCategory(String resumeCategory) {
         this.resumeCategory = resumeCategory;
     }
 }

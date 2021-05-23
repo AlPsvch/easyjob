@@ -1,25 +1,12 @@
-package com.easyjob.jobmanager.entity.resume;
+package com.easyjob.jobmanager.dto.resume;
 
-import javax.persistence.*;
-import java.io.Serializable;
+public class EducationDto {
 
-@Entity
-public class Education implements Serializable {
-
-    @Id
-    @SequenceGenerator(name = "education_sequence", sequenceName = "education_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "education_sequence")
-    @Column(nullable = false, updatable = false)
     private Long id;
-
     private String university;
-
     private String faculty;
-
     private String qualification;
-
     private Integer entranceYear;
-
     private Integer graduationYear;
 
     public Long getId() {

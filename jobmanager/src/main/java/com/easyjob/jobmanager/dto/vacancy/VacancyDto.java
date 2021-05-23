@@ -1,54 +1,24 @@
-package com.easyjob.jobmanager.entity.vacancy;
+package com.easyjob.jobmanager.dto.vacancy;
 
-import com.easyjob.jobmanager.entity.JobCategory;
-
-import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-public class Vacancy implements Serializable {
+public class VacancyDto {
 
-    @Id
-    @SequenceGenerator(name = "vacancy_sequence", sequenceName = "vacancy_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vacancy_sequence")
-    @Column(nullable = false, updatable = false)
     private Long id;
-
     private String name;
-
     private String country;
-
     private String city;
-
     private String experience;
-
     private String address;
-
-    @Enumerated(EnumType.STRING)
-    private EmploymentMode employmentMode;
-
-    @Column(length = 1024)
+    private String employmentMode;
     private String companyInfo;
-
-    @Column(length = 1024)
     private String description;
-
     private String imageUrl;
-
     private boolean active;
-
     private String phone;
-
     private String email;
-
     private LocalDateTime publishDate;
-
-    @Enumerated(EnumType.STRING)
-    private JobCategory vacancyCategory;
-
-    public Vacancy() {
-    }
+    private String vacancyCategory;
 
     public Long getId() {
         return id;
@@ -98,11 +68,11 @@ public class Vacancy implements Serializable {
         this.address = address;
     }
 
-    public EmploymentMode getEmploymentMode() {
+    public String getEmploymentMode() {
         return employmentMode;
     }
 
-    public void setEmploymentMode(EmploymentMode employmentMode) {
+    public void setEmploymentMode(String employmentMode) {
         this.employmentMode = employmentMode;
     }
 
@@ -162,11 +132,11 @@ public class Vacancy implements Serializable {
         this.publishDate = publishDate;
     }
 
-    public JobCategory getVacancyCategory() {
+    public String getVacancyCategory() {
         return vacancyCategory;
     }
 
-    public void setVacancyCategory(JobCategory vacancyCategory) {
+    public void setVacancyCategory(String vacancyCategory) {
         this.vacancyCategory = vacancyCategory;
     }
 }

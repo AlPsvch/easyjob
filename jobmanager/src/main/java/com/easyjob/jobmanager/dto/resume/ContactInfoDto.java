@@ -1,25 +1,12 @@
-package com.easyjob.jobmanager.entity.resume;
+package com.easyjob.jobmanager.dto.resume;
 
-import javax.persistence.*;
-import java.io.Serializable;
+public class ContactInfoDto {
 
-@Entity
-public class ContactInfo implements Serializable {
-
-    @Id
-    @SequenceGenerator(name = "contact_info_sequence", sequenceName = "contact_info_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_info_sequence")
-    @Column(nullable = false, updatable = false)
     private Long id;
-
     private String country;
-
     private String city;
-
     private String address;
-
     private String skype;
-
     private String phone;
 
     public Long getId() {
