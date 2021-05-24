@@ -28,6 +28,8 @@ public class Vacancy implements Serializable {
     @Enumerated(EnumType.STRING)
     private EmploymentMode employmentMode;
 
+    private String companyName;
+
     @Column(length = 1024)
     private String companyInfo;
 
@@ -104,6 +106,14 @@ public class Vacancy implements Serializable {
 
     public void setEmploymentMode(EmploymentMode employmentMode) {
         this.employmentMode = employmentMode;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getCompanyInfo() {

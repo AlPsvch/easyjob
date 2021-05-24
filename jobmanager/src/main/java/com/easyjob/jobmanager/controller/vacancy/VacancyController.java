@@ -3,6 +3,7 @@ package com.easyjob.jobmanager.controller.vacancy;
 import com.easyjob.jobmanager.dto.vacancy.VacancyDto;
 import com.easyjob.jobmanager.entity.vacancy.Vacancy;
 import com.easyjob.jobmanager.entity.vacancy.VacancyPage;
+import com.easyjob.jobmanager.entity.vacancy.VacancySearchCriteria;
 import com.easyjob.jobmanager.service.vacancy.VacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,8 +33,8 @@ public class VacancyController {
     }
 
     @GetMapping(path = "/find")
-    public ResponseEntity<Page<Vacancy>> getVacancies(VacancyPage vacancyPage) {
-        Page<Vacancy> vacancies = vacancyService.findVacancies(vacancyPage);
+    public ResponseEntity<Page<Vacancy>> getVacancies(VacancyPage vacancyPage, VacancySearchCriteria vacancySearchCriteria) {
+        Page<Vacancy> vacancies = vacancyService.findVacancies(vacancyPage, vacancySearchCriteria);
         return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 
@@ -74,6 +75,7 @@ public class VacancyController {
         vacancyDto.setExperience(vacancy.getExperience());
         vacancyDto.setAddress(vacancy.getAddress());
         vacancyDto.setEmploymentMode(vacancy.getEmploymentMode().getDescription());
+        vacancyDto.setCompanyName(vacancy.getCompanyName());
         vacancyDto.setCompanyInfo(vacancy.getCompanyInfo());
         vacancyDto.setDescription(vacancy.getDescription());
         vacancyDto.setImageUrl(vacancy.getImageUrl());

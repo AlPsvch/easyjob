@@ -1,7 +1,5 @@
 package com.easyjob.jobmanager.dto.resume;
 
-import com.easyjob.jobmanager.entity.JobCategory;
-
 import java.time.LocalDateTime;
 
 public class ResumeDto {

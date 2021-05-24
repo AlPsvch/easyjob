@@ -11,6 +11,7 @@ public class VacancyDto {
     private String experience;
     private String address;
     private String employmentMode;
+    private String companyName;
     private String companyInfo;
     private String description;
     private String imageUrl;
@@ -74,6 +75,14 @@ public class VacancyDto {
 
     public void setEmploymentMode(String employmentMode) {
         this.employmentMode = employmentMode;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getCompanyInfo() {
