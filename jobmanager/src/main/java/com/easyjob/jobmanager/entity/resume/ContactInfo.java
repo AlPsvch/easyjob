@@ -22,6 +22,8 @@ public class ContactInfo implements Serializable {
 
     private String phone;
 
+    private String email;
+
     public Long getId() {
         return id;
     }
@@ -68,5 +70,13 @@ public class ContactInfo implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

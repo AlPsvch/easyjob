@@ -1,12 +1,10 @@
 package com.easyjob.jobmanager.controller.resume;
 
+import com.easyjob.jobmanager.dto.resume.AddResumeDto;
 import com.easyjob.jobmanager.dto.resume.ContactInfoDto;
 import com.easyjob.jobmanager.dto.resume.EducationDto;
 import com.easyjob.jobmanager.dto.resume.ResumeDto;
-import com.easyjob.jobmanager.entity.resume.ContactInfo;
-import com.easyjob.jobmanager.entity.resume.Education;
-import com.easyjob.jobmanager.entity.resume.Resume;
-import com.easyjob.jobmanager.entity.resume.ResumePage;
+import com.easyjob.jobmanager.entity.resume.*;
 import com.easyjob.jobmanager.service.resume.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,8 +34,8 @@ public class ResumeController {
     }
 
     @GetMapping(path = "/find")
-    public ResponseEntity<Page<Resume>> getResumes(ResumePage resumePage) {
-        Page<Resume> resumes = resumeService.findResumes(resumePage);
+    public ResponseEntity<Page<Resume>> getResumes(ResumePage resumePage, ResumeSearchCriteria resumeSearchCriteria) {
+        Page<Resume> resumes = resumeService.findResumes(resumePage, resumeSearchCriteria);
         return new ResponseEntity<>(resumes, HttpStatus.OK);
     }
 
@@ -49,7 +47,8 @@ public class ResumeController {
     }
 
     @PostMapping(path = "/add")
-    public ResponseEntity<ResumeDto> addResume(@RequestBody Resume resume) {
+    public ResponseEntity<ResumeDto> addResume(@RequestBody AddResumeDto addResumeDto) {
+        Resume resume = convertToResume(addResumeDto);
         Resume addedResume = resumeService.addResume(resume);
         ResumeDto addedResumeDto = convertResumeToDto(addedResume);
         return new ResponseEntity<>(addedResumeDto, HttpStatus.CREATED);
@@ -73,7 +72,10 @@ public class ResumeController {
 
         resumeDto.setId(resume.getId());
         resumeDto.setName(resume.getName());
+        resumeDto.setFirstName(resume.getFirstName());
+        resumeDto.setLastName(resume.getLastName());
         resumeDto.setExperience(resume.getExperience());
+        resumeDto.setAbout(resume.getAbout());
         resumeDto.setContactInfo(convertContactInfoToDto(resume.getContactInfo()));
         resumeDto.setEducation(convertEducationToDto(resume.getEducation()));
         resumeDto.setGender(resume.getGender().getName());
@@ -93,6 +95,7 @@ public class ResumeController {
         contactInfoDto.setAddress(contactInfo.getAddress());
         contactInfoDto.setSkype(contactInfo.getSkype());
         contactInfoDto.setPhone(contactInfo.getPhone());
+        contactInfoDto.setEmail(contactInfo.getEmail());
 
         return contactInfoDto;
     }
@@ -108,5 +111,38 @@ public class ResumeController {
         educationDto.setGraduationYear(education.getGraduationYear());
 
         return educationDto;
+    }
+
+    private Resume convertToResume(AddResumeDto addResumeDto) {
+        Resume resume = new Resume();
+
+        resume.setName(addResumeDto.getName());
+        resume.setFirstName(addResumeDto.getFirstName());
+        resume.setLastName(addResumeDto.getLastName());
+        resume.setExperience(addResumeDto.getExperience());
+        resume.setAbout(addResumeDto.getAbout());
+        resume.setGender(addResumeDto.getGender());
+        resume.setResumeCategory(addResumeDto.getResumeCategory());
+
+        ContactInfo contactInfo = new ContactInfo();
+
+        contactInfo.setCountry(addResumeDto.getCountry());
+        contactInfo.setCity(addResumeDto.getCity());
+        contactInfo.setAddress(addResumeDto.getAddress());
+        contactInfo.setSkype(addResumeDto.getSkype());
+        contactInfo.setPhone(addResumeDto.getPhone());
+        contactInfo.setEmail(addResumeDto.getEmail());
+        resume.setContactInfo(contactInfo);
+
+        Education education = new Education();
+
+        education.setUniversity(addResumeDto.getUniversity());
+        education.setFaculty(addResumeDto.getFaculty());
+        education.setQualification(addResumeDto.getQualification());
+        education.setEntranceYear(addResumeDto.getEntranceYear());
+        education.setGraduationYear(addResumeDto.getGraduationYear());
+        resume.setEducation(education);
+
+        return resume;
     }
 }

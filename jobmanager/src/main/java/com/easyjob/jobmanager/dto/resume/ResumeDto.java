@@ -6,7 +6,10 @@ public class ResumeDto {
 
     private Long id;
     private String name;
+    private String firstName;
+    private String lastName;
     private String experience;
+    private String about;
     private ContactInfoDto contactInfo;
     private EducationDto education;
     private String gender;
@@ -30,12 +33,36 @@ public class ResumeDto {
         this.name = name;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getExperience() {
         return experience;
     }
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public ContactInfoDto getContactInfo() {

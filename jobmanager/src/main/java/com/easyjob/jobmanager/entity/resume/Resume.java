@@ -17,7 +17,14 @@ public class Resume implements Serializable {
 
     private String name;
 
+    private String firstName;
+
+    private String lastName;
+
     private String experience;
+
+    @Column(length = 1024)
+    private String about;
 
     @OneToOne
     private ContactInfo contactInfo;
@@ -51,12 +58,36 @@ public class Resume implements Serializable {
         this.name = name;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getExperience() {
         return experience;
     }
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public ContactInfo getContactInfo() {

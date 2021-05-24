@@ -1,8 +1,10 @@
 package com.easyjob.jobmanager.service.resume;
 
+import com.easyjob.jobmanager.dao.resume.ContactInfoRepository;
+import com.easyjob.jobmanager.dao.resume.EducationRepository;
+import com.easyjob.jobmanager.dao.resume.ResumeCriteriaRepository;
 import com.easyjob.jobmanager.dao.resume.ResumeRepository;
-import com.easyjob.jobmanager.entity.resume.Resume;
-import com.easyjob.jobmanager.entity.resume.ResumePage;
+import com.easyjob.jobmanager.entity.resume.*;
 import com.easyjob.jobmanager.exception.ResumeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +20,16 @@ import java.util.List;
 public class ResumeService {
 
     private final ResumeRepository resumeRepository;
+    private final ContactInfoRepository contactInfoRepository;
+    private final EducationRepository educationRepository;
+    private final ResumeCriteriaRepository resumeCriteriaRepository;
 
     @Autowired
-    public ResumeService(ResumeRepository resumeRepository) {
+    public ResumeService(ResumeRepository resumeRepository, ContactInfoRepository contactInfoRepository, EducationRepository educationRepository, ResumeCriteriaRepository resumeCriteriaRepository) {
         this.resumeRepository = resumeRepository;
+        this.contactInfoRepository = contactInfoRepository;
+        this.educationRepository = educationRepository;
+        this.resumeCriteriaRepository = resumeCriteriaRepository;
     }
 
     public List<Resume> findAllResumes() {
@@ -35,17 +43,33 @@ public class ResumeService {
         return resumeRepository.findAll(pageable);
     }
 
+    public Page<Resume> findResumes(ResumePage resumePage, ResumeSearchCriteria resumeSearchCriteria) {
+        return resumeCriteriaRepository.findWithFilters(resumePage, resumeSearchCriteria);
+    }
+
     public Resume findResume(Long resumeId) {
         return resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new ResumeNotFoundException("Resume with id: " + resumeId + " was not found"));
     }
 
     public Resume addResume(Resume resume) {
+        ContactInfo contactInfo = contactInfoRepository.save(resume.getContactInfo());
+        Education education = educationRepository.save(resume.getEducation());
+
+        resume.setContactInfo(contactInfo);
+        resume.setEducation(education);
         resume.setPublishDate(LocalDateTime.now());
+
         return resumeRepository.save(resume);
     }
 
     public Resume updateResume(Resume resume) {
+        ContactInfo contactInfo = contactInfoRepository.save(resume.getContactInfo());
+        Education education = educationRepository.save(resume.getEducation());
+
+        resume.setContactInfo(contactInfo);
+        resume.setEducation(education);
+
         return resumeRepository.save(resume);
     }
 
