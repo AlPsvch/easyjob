@@ -1,0 +1,165 @@
+<div class="hero-wrap hero-wrap-2" style="background-image: url('bg_1.jpg');" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end justify-content-start">
+      <div class="col-md-12 ftco-animate text-center mb-5">
+        <p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Home &rarr;</a></span>
+          <span>Resumes</span></p>
+        <h1 class="mb-3 bread">Browse Resumes</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 pr-lg-4">
+        <div *ngIf="resumes.length == 0">
+          <section class="ftco-section bg-light">
+            <div class="container">
+              <h4>No resumes vere found</h4>
+            </div>
+          </section>
+        </div>
+        <div class="row">
+          <div *ngFor="let resume of resumes" class="col-md-12 ftco-animate">
+            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+              <div class="one-third mb-4 mb-md-0">
+                <div class="job-post-item-header align-items-center">
+                  <span class="subadge">{{resume.firstName}} {{resume.lastName}}</span>
+                  <h2 class="mr-3 text-black"><a [routerLink]="" (click)="openResume(resume)">{{resume.name}}</a>
+                  </h2>
+                </div>
+                <div class="job-post-item-body d-block d-md-flex">
+                  <div class="mr-3"><span class="icon-layers"></span>Опыт: {{resume.experience}}</div>
+                  <div class="mr-3"><span class="icon-layers"></span>{{resume.education.university}}, {{resume.education.faculty}}, {{resume.education.qualification}}</div>
+                  <div><span class="icon-my_location"></span> <span>{{resume.contactInfo.country}}, {{resume.contactInfo.city}}</span></div>
+                </div>
+              </div>
+            </div>
+          </div><!-- end -->
+        </div>
+
+        <div *ngIf="totalPages > 1">
+          <div class="row mt-5">
+            <div class="col text-center">
+              <div class="block-27">
+                <ul>
+                  <li>
+                    <a [routerLink]="" (click)="getResumes(0)">&laquo;</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="" (click)="getResumes(currentPage - 1 >= 0 ? currentPage - 1 : 0)">&lt;</a>
+                  </li>
+                  <li *ngFor="let page of navigationPages" [class.active]="page == (currentPage + 1)">
+                    <a [routerLink]="" (click)="getResumes(page - 1)">{{page}}</a>
+                  </li>
+                  <li>
+                    <a [routerLink]=""
+                       (click)="getResumes(currentPage + 1 < totalPages ? currentPage + 1 : totalPages - 1)">&gt;</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="" (click)="getResumes(totalPages - 1)">&raquo;</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 sidebar">
+        <div class="sidebar-box bg-white p-4 ftco-animate">
+          <form #searchForm="ngForm" (ngSubmit)="searchResumes(searchForm)" class="search-form mb-3">
+            <div class="form-group">
+              <span class="icon icon-search"></span>
+              <input type="text" name="search" ngModel class="form-control" placeholder="Поиск...">
+            </div>
+
+            <br>
+            <h3 class="heading-sidebar">Пол</h3>
+            <div *ngFor="let gender of genderList">
+              <label><input type="checkbox" name="{{gender.code}}"
+                            [(ngModel)]="gender.isSelected"> {{gender.description}}
+              </label><br>
+            </div>
+
+            <br>
+            <h3 class="heading-sidebar">Категория</h3>
+            <div *ngFor="let jobCategoryVariant of jobCategoriesList">
+              <label><input type="checkbox" name="{{jobCategoryVariant.code}}"
+                            [(ngModel)]="jobCategoryVariant.isSelected"> {{jobCategoryVariant.description}}
+              </label><br>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Easy Job</h2>
+          <p>Это приложение, позволяющее найти лучшую работу с минимальными усилиями</p>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Работодателям</h2>
+          <ul class="list-unstyled">
+            <li><a href="#" class="pb-1 d-block">Просмотреть кандидатов</a></li>
+            <li><a href="#" class="pb-1 d-block">Разместить вакансию</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Кандидатам</h2>
+          <ul class="list-unstyled">
+            <li><a href="#" class="pb-1 d-block">Просмотреть вакансии</a></li>
+            <li><a href="#" class="pb-1 d-block">Разместить резюме</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Мои данные</h2>
+          <ul class="list-unstyled">
+            <li><a href="#" class="pb-1 d-block">Мой аккаунт</a></li>
+            <li><a href="#" class="pb-1 d-block">Вход</a></li>
+            <li><a href="#" class="pb-1 d-block">Регистрация</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Есть вопросы?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li><span class="icon icon-map-marker"></span><span class="text">Беларусь, Минск</span></li>
+              <li><span class="icon icon-phone"></span><span class="text">+375(44)777-77-77</span></li>
+              <li><span class="icon icon-envelope"></span><span class="text">email@email.com</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- loader-->
+<div id="ftco-loader" class="show fullscreen">
+  <svg class="circular" width="48px" height="48px">
+    <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+    <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+  </svg>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>

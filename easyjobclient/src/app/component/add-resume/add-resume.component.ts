@@ -1,31 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {Vacancy} from "../../model/vacancy/vacancy";
-import {VacancyService} from "../../service/vacancy.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
 import {CheckboxItem} from "../../model/checkbox-item";
+import {Router} from "@angular/router";
+import {ResumeService} from "../../service/resume.service";
+import {NgForm} from "@angular/forms";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Resume} from "../../model/resume/resume";
 
 @Component({
-  selector: 'app-vacancy',
-  templateUrl: './vacancy.component.html',
-  styleUrls: ['./vacancy.component.css']
+  selector: 'app-add-resume',
+  templateUrl: './add-resume.component.html',
+  styleUrls: ['./add-resume.component.css']
 })
-export class VacancyComponent implements OnInit {
+export class AddResumeComponent implements OnInit {
 
-  employmentModesList: CheckboxItem[];
+  gendersList: CheckboxItem[];
   jobCategoriesList: CheckboxItem[];
 
-  public vacancies: Vacancy[];
-
-  public totalPages: number = 0;
-  public currentPage: number;
-  public fromPage: number;
-  public toPage: number;
-  public maxPagesNavigation: number = 5;
-  public navigationPages: number[];
-
-  constructor(private vacancyService: VacancyService, private router: Router) {
+  constructor(private resumeService: ResumeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,21 +27,15 @@ export class VacancyComponent implements OnInit {
       localStorage.setItem('firstReload', 'true');
     }
 
-    this.getEmploymentModes();
-    this.getJobCategories()
-    this.getVacancies();
+    this.getGenders();
+    this.getJobCategories();
   }
 
-  public getVacancies(pageNumber: number = 0, searchParam: string = ""): void {
-    let employmentModeParam = VacancyComponent.buildParamsString(this.employmentModesList);
-    let jobCategoryParam = VacancyComponent.buildParamsString(this.jobCategoriesList);
-
-    this.vacancyService.getVacancies(pageNumber, searchParam, employmentModeParam, jobCategoryParam).subscribe(
-      response => {
-        this.vacancies = response['content'];
-        this.totalPages = response['totalPages'];
-        this.currentPage = response['number'];
-        this.updateNavigationData()
+  onAddResume(addForm: NgForm) {
+    console.log(addForm.value);
+    this.resumeService.addResume(addForm.value).subscribe(
+      (response: Resume) => {
+        this.router.navigate(['/resumes', response.id]);
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);
@@ -58,57 +43,10 @@ export class VacancyComponent implements OnInit {
     )
   }
 
-  public searchVacancies(searchForm: NgForm) {
-    let searchParam = searchForm.value.search;
-    this.getVacancies(0, searchParam);
-  }
-
-  private static buildParamsString(list: CheckboxItem[]): any {
-    let params = "";
-
-    for (let item of list) {
-      if (item.isSelected) {
-        params += item.code + ","
-      }
-    }
-
-    if (params !== "") {
-      params = params.substring(0, params.length - 1);
-    }
-
-    return params;
-  }
-
-  private updateNavigationData() {
-    if (this.totalPages <= this.maxPagesNavigation) {
-      this.fromPage = 0;
-      this.toPage = this.totalPages;
-    } else {
-      this.fromPage = this.currentPage - Math.floor(this.maxPagesNavigation / 2);
-      this.toPage = this.currentPage + Math.floor(this.maxPagesNavigation / 2) + 1;
-
-      if (this.fromPage < 0) {
-        this.fromPage = 0;
-        this.toPage = this.maxPagesNavigation;
-      }
-      if (this.toPage > this.totalPages) {
-        this.toPage = this.totalPages;
-        this.fromPage = this.totalPages - this.maxPagesNavigation;
-      }
-    }
-
-    this.navigationPages = Array.from({length: (this.toPage - this.fromPage)}, (_, i) => i + this.fromPage + 1)
-  }
-
-  openVacancy(vacancy: Vacancy) {
-    this.router.navigate(['/vacancies', vacancy.id]);
-  }
-
-  getEmploymentModes() {
-    this.employmentModesList = [
-      {code: "FULL_TIME", description: "Полная занятость, полный день", isSelected: false},
-      {code: "PART_TIME", description: "Неполный рабочий день", isSelected: false},
-      {code: "INTERSHIP", description: "Неполный рабочий день, стажировка", isSelected: false}
+  getGenders() {
+    this.gendersList = [
+      {code: "MALE", description: "Мужской", isSelected: false},
+      {code: "FEMALE", description: "Женский", isSelected: false}
     ]
   }
 

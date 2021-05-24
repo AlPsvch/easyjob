@@ -34,7 +34,6 @@ export class AddVacancyComponent implements OnInit {
   onAddVacancy(addForm: NgForm) {
     this.vacancyService.addVacancy(addForm.value).subscribe(
       (response: Vacancy) => {
-        console.log(response)
         this.router.navigate(['/vacancies', response.id]);
       },
       (error: HttpErrorResponse) => {

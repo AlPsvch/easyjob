@@ -3,7 +3,6 @@ import {VacancyService} from "../../service/vacancy.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Vacancy} from "../../model/vacancy/vacancy";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-single-vacancy',
@@ -14,8 +13,6 @@ export class SingleVacancyComponent implements OnInit {
 
   public vacancyId;
   public vacancy: Vacancy;
-
-  private subscription: Subscription;
 
   constructor(private vacancyService: VacancyService, private route: ActivatedRoute) {
   }

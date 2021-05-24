@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {Vacancy} from "../../model/vacancy/vacancy";
-import {VacancyService} from "../../service/vacancy.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
 import {CheckboxItem} from "../../model/checkbox-item";
+import {Router} from "@angular/router";
+import {ResumeService} from "../../service/resume.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Resume} from "../../model/resume/resume";
+import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-vacancy',
-  templateUrl: './vacancy.component.html',
-  styleUrls: ['./vacancy.component.css']
+  selector: 'app-resume',
+  templateUrl: './resume.component.html',
+  styleUrls: ['./resume.component.css']
 })
-export class VacancyComponent implements OnInit {
+export class ResumeComponent implements OnInit {
 
-  employmentModesList: CheckboxItem[];
+  genderList: CheckboxItem[];
   jobCategoriesList: CheckboxItem[];
 
-  public vacancies: Vacancy[];
+  public resumes: Resume[];
 
   public totalPages: number = 0;
   public currentPage: number;
@@ -25,7 +25,7 @@ export class VacancyComponent implements OnInit {
   public maxPagesNavigation: number = 5;
   public navigationPages: number[];
 
-  constructor(private vacancyService: VacancyService, private router: Router) {
+  constructor(private resumeService: ResumeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,18 +36,18 @@ export class VacancyComponent implements OnInit {
       localStorage.setItem('firstReload', 'true');
     }
 
-    this.getEmploymentModes();
-    this.getJobCategories()
-    this.getVacancies();
+    this.getGenders();
+    this.getJobCategories();
+    this.getResumes();
   }
 
-  public getVacancies(pageNumber: number = 0, searchParam: string = ""): void {
-    let employmentModeParam = VacancyComponent.buildParamsString(this.employmentModesList);
-    let jobCategoryParam = VacancyComponent.buildParamsString(this.jobCategoriesList);
+  public getResumes(pageNumber: number = 0, searchParam: string = ""): void {
+    let jobCategoryParam = ResumeComponent.buildParamsString(this.jobCategoriesList);
+    let genderParam = ResumeComponent.buildParamsString(this.genderList);
 
-    this.vacancyService.getVacancies(pageNumber, searchParam, employmentModeParam, jobCategoryParam).subscribe(
+    this.resumeService.getResumes(pageNumber, searchParam, jobCategoryParam, genderParam).subscribe(
       response => {
-        this.vacancies = response['content'];
+        this.resumes = response['content'];
         this.totalPages = response['totalPages'];
         this.currentPage = response['number'];
         this.updateNavigationData()
@@ -58,9 +58,9 @@ export class VacancyComponent implements OnInit {
     )
   }
 
-  public searchVacancies(searchForm: NgForm) {
+  public searchResumes(searchForm: NgForm) {
     let searchParam = searchForm.value.search;
-    this.getVacancies(0, searchParam);
+    this.getResumes(0, searchParam);
   }
 
   private static buildParamsString(list: CheckboxItem[]): any {
@@ -100,15 +100,14 @@ export class VacancyComponent implements OnInit {
     this.navigationPages = Array.from({length: (this.toPage - this.fromPage)}, (_, i) => i + this.fromPage + 1)
   }
 
-  openVacancy(vacancy: Vacancy) {
-    this.router.navigate(['/vacancies', vacancy.id]);
+  openResume(resume: Resume) {
+    this.router.navigate(['resumes', resume.id]);
   }
 
-  getEmploymentModes() {
-    this.employmentModesList = [
-      {code: "FULL_TIME", description: "Полная занятость, полный день", isSelected: false},
-      {code: "PART_TIME", description: "Неполный рабочий день", isSelected: false},
-      {code: "INTERSHIP", description: "Неполный рабочий день, стажировка", isSelected: false}
+  getGenders() {
+    this.genderList = [
+      {code: "MALE", description: "Мужской", isSelected: false},
+      {code: "FEMALE", description: "Женский", isSelected: false}
     ]
   }
 

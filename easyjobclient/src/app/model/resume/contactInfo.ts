@@ -5,4 +5,5 @@ export interface ContactInfo {
   address: string;
   skype: string;
   phone: string;
+  email: string;
 }
