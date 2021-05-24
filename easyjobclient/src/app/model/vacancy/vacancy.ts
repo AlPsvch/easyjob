@@ -15,4 +15,5 @@ export interface Vacancy {
   vacancyCategory: string;
   phone: string;
   email: string;
+  salary: number;
 }
