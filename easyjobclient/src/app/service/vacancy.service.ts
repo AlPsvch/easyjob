@@ -14,8 +14,13 @@ export class VacancyService {
   constructor(private http: HttpClient) {
   }
 
-  public getVacancies(pageNumber: number = 0): Observable<Vacancy[]> {
-    return this.http.get<Vacancy[]>(this.apiServerUrl + '/vacancy/find?pageNumber=' + pageNumber)
+  public getVacancies(pageNumber: number = 0, searchParam: string = "", employmentModes: string = "", jobCategories: string = ""): Observable<Vacancy[]> {
+    let url = '/vacancy/find?pageNumber=' + pageNumber;
+    url += searchParam !== "" ? "&search=" + searchParam : "";
+    url += employmentModes !== "" ? "&employmentModes=" + employmentModes : "";
+    url += jobCategories !== "" ? "&jobCategories=" + jobCategories : "";
+
+    return this.http.get<Vacancy[]>(this.apiServerUrl + url)
   }
 
   public getVacancy(vacancyId: number): Observable<Vacancy> {

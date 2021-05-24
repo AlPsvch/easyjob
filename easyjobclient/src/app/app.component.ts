@@ -31,12 +31,6 @@ import 'src/app/resources/js/owl.carousel.min'
 import 'src/app/resources/js/popper.min'
 import 'src/app/resources/js/range'
 
-//import 'src/app/resources/js/google-map'
-//import 'src/app/resources/js/jquery-migrate-3.0.1.min'
-//import 'src/app/resources/js/bootstrap.min'
-//import 'src/app/resources/js/jquery.magnific-popup.min'
-//import 'src/app/resources/js/scrollax.min'
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

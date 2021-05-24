@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import { SingleVacancyComponent } from './component/single-vacancy/single-vacancy.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { SingleVacancyComponent } from './component/single-vacancy/single-vacanc
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ export interface Vacancy {
   experience: string;
   address: string;
   employmentMode: string;
+  companyName: string;
   companyInfo: string;
   description: string;
   imageUrl: string;
