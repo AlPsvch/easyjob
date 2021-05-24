@@ -20,6 +20,7 @@ public class VacancyDto {
     private String email;
     private LocalDateTime publishDate;
     private String vacancyCategory;
+    private Integer salary;
 
     public Long getId() {
         return id;
@@ -147,5 +148,13 @@ public class VacancyDto {
 
     public void setVacancyCategory(String vacancyCategory) {
         this.vacancyCategory = vacancyCategory;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 }

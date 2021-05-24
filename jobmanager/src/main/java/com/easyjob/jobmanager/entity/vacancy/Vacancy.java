@@ -46,6 +46,8 @@ public class Vacancy implements Serializable {
 
     private LocalDateTime publishDate;
 
+    private Integer salary;
+
     @Enumerated(EnumType.STRING)
     private JobCategory vacancyCategory;
 
@@ -178,5 +180,13 @@ public class Vacancy implements Serializable {
 
     public void setVacancyCategory(JobCategory vacancyCategory) {
         this.vacancyCategory = vacancyCategory;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 }

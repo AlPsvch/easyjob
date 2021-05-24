@@ -84,6 +84,7 @@ public class VacancyController {
         vacancyDto.setEmail(vacancy.getEmail());
         vacancyDto.setPublishDate(vacancy.getPublishDate());
         vacancyDto.setVacancyCategory(vacancy.getVacancyCategory().getCategoryName());
+        vacancyDto.setSalary(vacancy.getSalary());
 
         return vacancyDto;
     }
