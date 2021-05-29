@@ -18,7 +18,7 @@
           <li *ngIf="token !== '' && token !== null" class="nav-item cta cta-colored"><a routerLink="/resume/add" class="nav-link">Разместить резюме</a></li>
 
           <li *ngIf="token === '' || token === null" class="nav-item cta mr-md-1"><a routerLink="/login" class="nav-link">Вход</a></li>
-          <li *ngIf="token === '' || token === null" class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Регистрация</a></li>
+          <li *ngIf="token === '' || token === null" class="nav-item cta cta-colored"><a routerLink="/registry" class="nav-link">Регистрация</a></li>
       </ul>
     </div>
   </div>

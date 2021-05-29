@@ -29,6 +29,8 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
 
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     private PersonalityType personalityType;
 
@@ -98,6 +100,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public PersonalityType getPersonalityType() {

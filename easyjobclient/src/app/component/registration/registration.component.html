@@ -34,8 +34,46 @@
           </div>
 
           <div class="row form-group">
+            <div class="col-md-12"><h3>Имя</h3></div>
+            <div class="col-md-12 mb-3 mb-md-0">
+              <input type="text" id="firstName" name="firstName" ngModel class="form-control" placeholder="First Name">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-12"><h3>Фамилия</h3></div>
+            <div class="col-md-12 mb-3 mb-md-0">
+              <input type="text" id="lastName" name="lastName" ngModel class="form-control" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-12"><h3>Email</h3></div>
+            <div class="col-md-12 mb-3 mb-md-0">
+              <input type="text" id="email" name="email" ngModel class="form-control" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-12"><h3>Телефон</h3></div>
+            <div class="col-md-12 mb-3 mb-md-0">
+              <input type="text" id="phone" name="phone" ngModel class="form-control" placeholder="Phone">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-12"><h3>Тип личности</h3></div>
+            <div class="col-md-12 mb-3 mb-md-0">
+              <select id="personalityType" name="personalityType" ngModel class="custom-select">
+                <option *ngFor="let type of personalityTypes"
+                        value="{{type.code}}">{{type.description}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row form-group">
             <div class="col-md-12">
-              <input type="submit" value="Войти" class="btn btn-primary  py-2 px-5">
+              <input type="submit" value="Зарегистрироваться" class="btn btn-primary  py-2 px-5">
             </div>
           </div>
 

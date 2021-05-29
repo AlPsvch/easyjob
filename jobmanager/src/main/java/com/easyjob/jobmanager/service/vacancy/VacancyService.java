@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,6 +50,10 @@ public class VacancyService {
     }
 
     public Vacancy addVacancy(Vacancy vacancy) {
+        if(StringUtils.isEmpty(vacancy.getName())) {
+            throw new IllegalArgumentException("Vacancy name should not be empty");
+        }
+
         vacancy.setPublishDate(LocalDateTime.now());
         return vacancyRepository.save(vacancy);
     }
